@@ -9,27 +9,25 @@ const db = admin.database();
 const ref = db.ref('/');
 
 export default https.onRequest(async (req, res) => {
-  // res.set('Access-Control-Allow-Origin', '*');
   cors(req, res, async () => {
     try {
-      const { station, pollId, choice } = req.body;
+      const { station, name, choices } = req.body;
       console.log('req.body', req.body);
-      checkAll({ station, pollId, choice });
-
-      const poll = (await ref
+      checkAll({ station, name, choices });
+      console.log(req.body);
+      const poll = { name, choices };
+      const pushedPollKey = (await ref
         .child(station)
-        .child('poll_answers')
-        .child(pollId)
-        .once('value')).val();
-      poll.votes[choice] = poll.votes[choice] + 1;
+        .child('polls')
+        .push(poll)).key;
 
-      console.log(poll);
+      const pollAnswers = { name, votes: Array(choices.length).fill(0) };
 
       await ref
         .child(station)
         .child('poll_answers')
-        .child(pollId)
-        .set(poll);
+        .child(pushedPollKey)
+        .update(pollAnswers);
       res.sendStatus(200);
     } catch (error) {
       console.error(error);

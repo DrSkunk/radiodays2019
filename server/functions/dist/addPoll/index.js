@@ -25,26 +25,32 @@ var _default = _firebaseFunctions.https.onRequest(
 /*#__PURE__*/
 function () {
   var _ref = _asyncToGenerator(function* (req, res) {
-    // res.set('Access-Control-Allow-Origin', '*');
     cors(req, res,
     /*#__PURE__*/
     _asyncToGenerator(function* () {
       try {
         const {
           station,
-          pollId,
-          choice
+          name,
+          choices
         } = req.body;
         console.log('req.body', req.body);
         (0, _util.checkAll)({
           station,
-          pollId,
-          choice
+          name,
+          choices
         });
-        const poll = (yield ref.child(station).child('poll_answers').child(pollId).once('value')).val();
-        poll.votes[choice] = poll.votes[choice] + 1;
-        console.log(poll);
-        yield ref.child(station).child('poll_answers').child(pollId).set(poll);
+        console.log(req.body);
+        const poll = {
+          name,
+          choices
+        };
+        const pushedPollKey = (yield ref.child(station).child('polls').push(poll)).key;
+        const pollAnswers = {
+          name,
+          votes: Array(choices.length).fill(0)
+        };
+        yield ref.child(station).child('poll_answers').child(pushedPollKey).update(pollAnswers);
         res.sendStatus(200);
       } catch (error) {
         console.error(error);
