@@ -18,8 +18,8 @@ class App extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <MediaPlayer currentRadio="RadioAct" />
-        <PollButtons currentRadio="RadioAct" />
+        <MediaPlayer currentStation="RadioAct" />
+        <PollButtons currentStation="RadioAct" />
       </div>
     );
   }
