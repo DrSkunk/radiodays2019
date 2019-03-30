@@ -32,23 +32,23 @@ function () {
         const {
           station,
           name,
-          options
+          choices
         } = req.body;
         console.log('req.body', req.body);
         (0, _util.checkAll)({
           station,
           name,
-          options
+          choices
         });
         console.log(req.body);
         const poll = {
           name,
-          options
+          choices
         };
         const pushedPollKey = (yield ref.child(station).child('polls').push(poll)).key;
         const pollAnswers = {
           name,
-          votes: Array(options.length).fill(0)
+          votes: Array(choices.length).fill(0)
         };
         yield ref.child(station).child('poll_answers').child(pushedPollKey).update(pollAnswers);
         res.sendStatus(200);

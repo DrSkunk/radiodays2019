@@ -42,7 +42,8 @@ function () {
           choice
         });
         const poll = (yield ref.child(station).child('poll_answers').child(pollId).once('value')).val();
-        poll[choice] = poll[choice] + 1;
+        poll.votes[choice] = poll.votes[choice] + 1;
+        console.log(poll);
         yield ref.child(station).child('poll_answers').child(pollId).set(poll);
         res.sendStatus(200);
       } catch (error) {

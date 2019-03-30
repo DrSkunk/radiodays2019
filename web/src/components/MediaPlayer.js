@@ -67,6 +67,7 @@ class MediaPlayer extends Component {
       this.setState({ nowOnAir: val.now_on_air });
     });
   }
+
   render() {
     const { classes, theme } = this.props;
     const { nowOnAir } = this.state;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import AddPoll from './atoms/AddPoll';
+import Polls from './components/Polls';
 
 const styles = theme => ({
   root: {}
@@ -13,7 +13,7 @@ class App extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <AddPoll currentStation="RadioAct" />
+        <Polls currentStation="RadioAct" />
       </div>
     );
   }

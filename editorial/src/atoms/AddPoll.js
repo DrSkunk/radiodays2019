@@ -23,7 +23,7 @@ const initialState = {
   open: false,
   loading: false,
   name: 'Untitled poll',
-  options: [
+  choices: [
     {
       text: '',
       image: ''
@@ -47,11 +47,11 @@ class AddPoll extends React.Component {
 
   handleSubmit = () => {
     this.setState({ loading: true });
-    const { options, name } = this.state;
+    const { choices, name } = this.state;
     const { currentStation } = this.props;
     const body = {
       station: currentStation,
-      options,
+      choices,
       name
     };
     const fetchOptions = {
@@ -63,8 +63,7 @@ class AddPoll extends React.Component {
     };
     console.log(body);
     fetch(
-      //   'https://us-central1-test-rhe.cloudfunctions.net/addPoll',
-      'http://localhost:5000/test-rhe/us-central1/addPoll',
+      'https://us-central1-test-rhe.cloudfunctions.net/addPoll',
       fetchOptions
     )
       .then(response => response.text())
@@ -101,13 +100,13 @@ class AddPoll extends React.Component {
   handleOptionChange = (index, type) => event => {
     const value = event.target.value;
     this.setState(state => {
-      state.options[index][type] = value;
+      state.choices[index][type] = value;
       return state;
     });
   };
 
   render() {
-    const { name, loading, options } = this.state;
+    const { name, loading, choices } = this.state;
     const { classes } = this.props;
     return (
       <div>
@@ -144,7 +143,7 @@ class AddPoll extends React.Component {
               id="option1"
               label="Option 1"
               type="text"
-              value={options[0].text}
+              value={choices[0].text}
               onChange={this.handleOptionChange(0, 'text')}
               fullWidth
             />
@@ -152,7 +151,7 @@ class AddPoll extends React.Component {
               margin="dense"
               id="option1-image"
               label="Option 1 Image"
-              value={options[0].image}
+              value={choices[0].image}
               onChange={this.handleOptionChange(0, 'image')}
               type="text"
               fullWidth
@@ -162,7 +161,7 @@ class AddPoll extends React.Component {
               id="option2"
               label="Option 2"
               type="text"
-              value={options[1].text}
+              value={choices[1].text}
               onChange={this.handleOptionChange(1, 'text')}
               fullWidth
             />
@@ -171,7 +170,7 @@ class AddPoll extends React.Component {
               id="option2-image"
               label="Option 2 Image"
               type="text"
-              value={options[1].image}
+              value={choices[1].image}
               onChange={this.handleOptionChange(1, 'image')}
               fullWidth
             />

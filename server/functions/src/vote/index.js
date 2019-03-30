@@ -21,7 +21,10 @@ export default https.onRequest(async (req, res) => {
         .child('poll_answers')
         .child(pollId)
         .once('value')).val();
-      poll[choice] = poll[choice] + 1;
+      poll.votes[choice] = poll.votes[choice] + 1;
+
+      console.log(poll);
+
       await ref
         .child(station)
         .child('poll_answers')
