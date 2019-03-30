@@ -81,14 +81,37 @@ const styles = theme => ({
 
 class PollButtons extends Component {
   state = {
-    poll: null
+    poll: null,
+    votedIndex: null
+  };
+
+  vote = index => {
+    console.log('Voted on ' + index);
+    const { pollId } = this.state;
+    const { currentStation } = this.props;
+    this.setState({ votedIndex: index });
+    const body = {
+      station: currentStation,
+      pollId,
+      choice: index
+    };
+
+    console.log('body', body);
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    };
+    fetch('https://us-central1-test-rhe.cloudfunctions.net/vote', options);
   };
 
   componentWillMount() {
     this.firebaseRef = firebase
       .database()
       .ref('/')
-      .child(this.props.currentRadio);
+      .child(this.props.currentStation);
     this.firebaseCallback = this.firebaseRef.on('value', snap => {
       let val = snap.val();
       if (val.polls.active_poll === undefined) {
@@ -96,16 +119,33 @@ class PollButtons extends Component {
         return;
       }
       console.log('val.polls', val.polls);
-      const poll = val.polls[val.polls.active_poll];
-      this.setState({ poll });
+      const pollId = val.polls.active_poll;
+      const poll = val.polls[pollId];
+      this.setState({ poll, pollId });
     });
   }
   render() {
     const { classes } = this.props;
-    const { poll } = this.state;
+    const { votedIndex, poll } = this.state;
+
+    let voted = false;
+    if (votedIndex !== null) {
+      voted = true;
+    }
+
+    console.log('votedIndex', votedIndex);
+    console.log('voted', voted);
 
     if (poll === null) {
       return null;
+    }
+
+    const imgStyle = {};
+    const buttonStyle = {};
+
+    if (voted) {
+      imgStyle.filter = 'blur(5px) grayscale(100%)';
+      buttonStyle.border = '4px solid currentColor';
     }
 
     const choices = poll.choices;
@@ -113,8 +153,9 @@ class PollButtons extends Component {
 
     return (
       <div className={classes.root}>
-        {choices.map(image => (
+        {choices.map((image, index) => (
           <ButtonBase
+            disabled={voted}
             focusRipple
             key={image.text}
             className={classes.image}
@@ -122,11 +163,13 @@ class PollButtons extends Component {
             style={{
               width
             }}
+            onClick={() => this.vote(index)}
           >
             <span
               className={classes.imageSrc}
               style={{
-                backgroundImage: `url(${image.image})`
+                backgroundImage: `url(${image.image})`,
+                ...imgStyle
               }}
             />
             <span className={classes.imageBackdrop} />
@@ -136,6 +179,7 @@ class PollButtons extends Component {
                 variant="subtitle1"
                 color="inherit"
                 className={classes.imageTitle}
+                style={votedIndex === index ? buttonStyle : null}
               >
                 {image.text}
                 <span className={classes.imageMarked} />

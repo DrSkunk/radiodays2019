@@ -57,7 +57,7 @@ class MediaPlayer extends Component {
     this.firebaseRef = firebase
       .database()
       .ref('/')
-      .child(this.props.currentRadio);
+      .child(this.props.currentStation);
     this.firebaseCallback = this.firebaseRef.on('value', snap => {
       let val = snap.val();
       if (val === null) {
