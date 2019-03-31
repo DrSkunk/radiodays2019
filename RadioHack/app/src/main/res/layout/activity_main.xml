@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/playbutton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/play_button" />
+
+    <Button
+        android:id="@+id/radio_title"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/radio_title1"
+        android:textColor="#3e8bcc"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/song_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radio_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textColor="#eeeeee"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/artist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/song_title"
+        android:layout_centerHorizontal="true"
+        android:textColor="#eeeeee"
+        android:textSize="24sp" />
+
+
+
+    <RelativeLayout
+        android:id="@+id/bottom"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#eeeeee"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <RelativeLayout
+            android:id="@+id/vote_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/poll_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:textColor="#3e8bcc"
+                android:textSize="24sp" />
+
+            <RelativeLayout
+                android:id="@+id/survey_p1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/poll_text"
+                android:layout_centerHorizontal="true">
+
+                <Button
+                    android:id="@+id/vote_a"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/vote_a" />
+
+                <Button
+                    android:id="@+id/vote_b"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@id/vote_a"
+                    android:background="@drawable/vote_b" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/survey_p2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/survey_p1"
+                android:layout_centerHorizontal="true">
+
+                <Button
+                    android:id="@+id/vote_c"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/vote_c" />
+
+                <Button
+                    android:id="@+id/vote_d"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@id/vote_c"
+                    android:background="@drawable/vote_d" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/results_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/results_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:textColor="#3e8bcc"
+                android:textSize="24sp" />
+
+            <RelativeLayout
+                android:id="@+id/results"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/results_text"
+                android:layout_centerHorizontal="true">
+
+
+                <RelativeLayout
+                    android:id="@+id/results_vote_a"
+                    android:layout_width="wrap_content"
+                    android:layout_height="235dp">
+
+                    <ImageView
+                        android:id="@+id/results_bar_vote_a"
+                        android:layout_width="60dp"
+                        android:layout_height="100dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#3e8bcc" />
+
+                    <TextView
+                        android:id="@+id/results_text_vote_a"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/results_bar_vote_a"
+                        android:text="A"
+                        android:textAlignment="center"
+                        android:textSize="35sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/results_vote_b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="235dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@+id/results_vote_a">
+
+                    <ImageView
+                        android:id="@+id/results_bar_vote_b"
+                        android:layout_width="60dp"
+                        android:layout_height="100dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#3e8bcc" />
+
+                    <TextView
+                        android:id="@+id/results_text_vote_b"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/results_bar_vote_b"
+                        android:text="B"
+                        android:textAlignment="center"
+                        android:textSize="35sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/results_vote_c"
+                    android:layout_width="wrap_content"
+                    android:layout_height="235dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@+id/results_vote_b">
+
+                    <ImageView
+                        android:id="@+id/results_bar_vote_c"
+                        android:layout_width="60dp"
+                        android:layout_height="100dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#3e8bcc" />
+
+                    <TextView
+                        android:id="@+id/results_text_vote_c"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/results_bar_vote_c"
+                        android:text="C"
+                        android:textAlignment="center"
+                        android:textSize="35sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/results_vote_d"
+                    android:layout_width="wrap_content"
+                    android:layout_height="235dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@+id/results_vote_c">
+
+                    <ImageView
+                        android:id="@+id/results_bar_vote_d"
+                        android:layout_width="60dp"
+                        android:layout_height="100dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#3e8bcc" />
+
+                    <TextView
+                        android:id="@+id/results_text_vote_d"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/results_bar_vote_d"
+                        android:text="D"
+                        android:textAlignment="center"
+                        android:textSize="35sp" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/bottomTitle"
+        android:text="RESULTS"
+        android:textStyle="bold|italic"
+        android:layout_centerInParent="true"
+        android:textAlignment="center"
+        android:textColor="#eeeeee"
+        android:textSize="24dp"
+        android:layout_above="@+id/bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+</RelativeLayout>
