@@ -48,8 +48,6 @@ public class ResizeAnimation extends Animation {
         if (mHeight >= 0)
             mView.getLayoutParams().height = mStartHeight + (int) ((mHeight - mStartHeight) * interpolatedTime);
 
-        if(mView.getVisibility() != View.VISIBLE)
-            mView.setVisibility(View.VISIBLE);
 
         mView.requestLayout();
     }

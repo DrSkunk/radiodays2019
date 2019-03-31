@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -148,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                             bottom.post(() -> {
-                                //bottom.setVisibility(View.VISIBLE);
+                                bottom.setVisibility(View.VISIBLE);
                                 TextView pollQuestion = findViewById(R.id.poll_text);
                                 pollQuestion.setText(dataSnapshot.child("name").getValue(String.class));
 
@@ -159,9 +160,15 @@ public class MainActivity extends AppCompatActivity {
                                 titleBottom.setVisibility(View.VISIBLE);
 
                                 int h = bottom.getHeight();
-                                Animation anim = new ResizeAnimation(bottom, bottom.getHeight(), -1, 0, -1);
+
+                                Animation animation = new TranslateAnimation(0, 0,bottom.getHeight(), 0);
+                                animation.setDuration(500);
+                                animation.setFillAfter(true);
+                                bottom.startAnimation(animation);
+                                titleBottom.startAnimation(animation);
+                                /*Animation anim = new ResizeAnimation(bottom, bottom.getHeight(), -1, 0, -1);
                                 anim.setDuration(500);
-                                bottom.startAnimation(anim);
+                                bottom.startAnimation(anim);*/
                             });
                         }
 
@@ -170,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                     });
-                } else if (display_results) {
+                } else if (display_results && (active_poll == null || !active_poll.isEmpty())) {
                     database.getReference("RadioAct/poll_answers/" + active_poll).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -189,16 +196,21 @@ public class MainActivity extends AppCompatActivity {
 
                                 bottom.requestLayout();
                                 bottom.post(()->{
-                                    //bottom.setVisibility(View.VISIBLE);
+                                    bottom.setVisibility(View.VISIBLE);
                                     TextView titleBottom = findViewById(R.id.bottomTitle);
                                     titleBottom.setText("RESULTS");
                                     titleBottom.setVisibility(View.VISIBLE);
                                     playPauseButton.setVisibility(View.GONE);
                                     findViewById(R.id.vote_view).setVisibility(View.GONE);
 
-                                    Animation anim = new ResizeAnimation(bottom, bottom.getHeight(), -1, 0, -1);
+                                    Animation animation = new TranslateAnimation(0, 0, bottom.getHeight(), 0);
+                                    animation.setDuration(500);
+                                    animation.setFillAfter(true);
+                                    bottom.startAnimation(animation);
+                                    titleBottom.startAnimation(animation);
+                                    /*Animation anim = new ResizeAnimation(bottom, bottom.getHeight(), -1, 0, -1);
                                     anim.setDuration(500);
-                                    bottom.startAnimation(anim);
+                                    bottom.startAnimation(anim);*/
                                 });
 
                             });
@@ -220,6 +232,8 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                             int max = Math.max(Math.max(countA, countB), Math.max(countC, countD));
+                            if(max == 0)
+                                max = 1;
                             findViewById(R.id.results_bar_vote_a).getLayoutParams().height = (int) (MAX_HEIGHT_BAR_CHART * height * countA / max);
                             findViewById(R.id.results_bar_vote_b).getLayoutParams().height = (int) (MAX_HEIGHT_BAR_CHART * height * countB / max);
                             RelativeLayout resultsC = findViewById(R.id.results_vote_c);
@@ -259,6 +273,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void hidePoll() {
         View bottom = findViewById(R.id.bottom);
+        View titleBottom = findViewById(R.id.bottomTitle);
         int heightBottom = bottom.getHeight();
         if (heightBottom == 0) {
             bottom.setVisibility(View.GONE);
@@ -267,8 +282,14 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.vote_view).setVisibility(View.GONE);
             findViewById(R.id.bottomTitle).setVisibility(View.GONE);
         } else {
-            Animation anim = new ResizeAnimation(bottom, 0, -1);
-            anim.setDuration(500);
+            Animation animation = new TranslateAnimation(0, 0, 0, bottom.getHeight());
+            animation.setDuration(500);
+            animation.setFillAfter(true);
+            bottom.startAnimation(animation);
+            animation.setFillAfter(false);
+            titleBottom.startAnimation(animation);
+            /*Animation anim = new ResizeAnimation(bottom, 0, -1);
+            anim.setDuration(500);*/
             bottom.postOnAnimationDelayed(() -> {
                 bottom.setVisibility(View.GONE);
                 bottom.getLayoutParams().height = WRAP_CONTENT;
@@ -277,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.vote_view).setVisibility(View.GONE);
                 findViewById(R.id.bottomTitle).setVisibility(View.GONE);
             }, 505);
-            bottom.startAnimation(anim);
+            bottom.startAnimation(animation);
         }
     }
 
