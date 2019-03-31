@@ -30,7 +30,7 @@ class PollDetail extends Component {
   state = {};
 
   componentWillMount() {
-    const { currentStation, poll, pollId } = this.props;
+    const { currentStation, poll } = this.props;
     console.log('props', this.props);
     console.log('poll', poll);
     this.firebaseRef = firebase
@@ -66,7 +66,7 @@ class PollDetail extends Component {
       body: JSON.stringify(body)
     };
     fetch(
-      'http://localhost:5000/test-rhe/us-central1/poll?action=activate',
+      'https://us-central1-test-rhe.cloudfunctions.net/poll?action=activate',
       fetchOptions
     );
   };
@@ -82,7 +82,7 @@ class PollDetail extends Component {
       body: JSON.stringify(body)
     };
     fetch(
-      'http://localhost:5000/test-rhe/us-central1/poll?action=deactivate',
+      'https://us-central1-test-rhe.cloudfunctions.net/poll?action=deactivate',
       fetchOptions
     );
   };
@@ -98,7 +98,7 @@ class PollDetail extends Component {
       body: JSON.stringify(body)
     };
     fetch(
-      'http://localhost:5000/test-rhe/us-central1/poll?action=displayResults',
+      'https://us-central1-test-rhe.cloudfunctions.net/poll?action=displayResults',
       fetchOptions
     );
   };
@@ -114,7 +114,7 @@ class PollDetail extends Component {
       body: JSON.stringify(body)
     };
     fetch(
-      'http://localhost:5000/test-rhe/us-central1/poll?action=hideResults',
+      'https://us-central1-test-rhe.cloudfunctions.net/poll?action=hideResults',
       fetchOptions
     )
       .then(console.log)
@@ -141,8 +141,6 @@ class PollDetail extends Component {
     const votesData = poll.choices.map((choice, index) => {
       return { name: choice.text, votes: pollAnswers[pollId].votes[index] };
     });
-
-    console.log('theme', theme);
 
     return (
       <div className={classes.root}>

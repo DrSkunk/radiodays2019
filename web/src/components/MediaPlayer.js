@@ -14,10 +14,11 @@ import firebase from '../firebase';
 
 const styles = theme => ({
   root: {
-    // display: 'flex',
+    display: 'flex',
     width: '100vw'
   },
   card: {
+    width: '100%',
     display: 'flex',
     justifyContent: 'space-between'
   },
@@ -89,23 +90,23 @@ class MediaPlayer extends Component {
               </Typography>
             </CardContent>
             <div className={classes.controls}>
-              <IconButton aria-label="Previous">
+              {/* <IconButton aria-label="Previous">
                 {theme.direction === 'rtl' ? (
                   <SkipNextIcon />
                 ) : (
                   <SkipPreviousIcon />
                 )}
-              </IconButton>
+              </IconButton> */}
               <IconButton aria-label="Play/pause">
                 <PlayArrowIcon className={classes.playIcon} />
               </IconButton>
-              <IconButton aria-label="Next">
+              {/* <IconButton aria-label="Next">
                 {theme.direction === 'rtl' ? (
                   <SkipPreviousIcon />
                 ) : (
                   <SkipNextIcon />
                 )}
-              </IconButton>
+              </IconButton> */}
             </div>
           </div>
           <CardMedia
