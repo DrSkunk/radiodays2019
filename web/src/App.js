@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import MediaPlayer from './components/MediaPlayer';
 import PollButtons from './components/PollButtons';
 
@@ -20,6 +22,7 @@ class App extends Component {
       <div className={classes.root}>
         <MediaPlayer currentStation="RadioAct" />
         <PollButtons currentStation="RadioAct" />
+        <ToastContainer />
       </div>
     );
   }

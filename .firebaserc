@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "test-rhe"
+  },
+  "targets": {
+    "test-rhe": {
+      "hosting": {
+        "client": [
+          "radiohack2019"
+        ],
+        "editorial": [
+          "test-rhe"
+        ]
+      }
+    }
   }
 }
